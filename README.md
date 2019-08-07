@@ -1,5 +1,11 @@
 # extended-snowflake
 
+## Releases
+
+* [Javascript (NPM)](https://www.npmjs.com/package/extended-snowflake)
+
+## General Info
+
 An ID generation library, based on [Twitter's Snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) design. It also splits the instance ID into instance/worker, the [same way Discord](https://discordapp.com/developers/docs/reference#snowflakes) does.
 
 Like a normal Snowflake, the IDs are roughly sortable. A generic String sort will group IDs to the millisecond, which is the same as a normal Snowflake.

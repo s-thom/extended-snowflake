@@ -1,5 +1,7 @@
 # extended-snowflake, Javascript implementation
 
+## [View on NPM](https://www.npmjs.com/package/extended-snowflake)
+
 ## [View on GitHub](https://github.com/s-thom/extended-snowflake)
 
 You'll also find the full README there.
