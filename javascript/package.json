@@ -1,0 +1,31 @@
+{
+  "name": "extended-snowflake",
+  "version": "1.0.0",
+  "description": "Twitter-like Snowflakes for the future",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "unpkg": "dist/extended-snowflake.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s-thom/extended-snowflake.git"
+  },
+  "keywords": [
+    "snowflake",
+    "id"
+  ],
+  "author": "s-thom",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/s-thom/extended-snowflake/issues"
+  },
+  "homepage": "https://github.com/s-thom/extended-snowflake#readme",
+  "devDependencies": {
+    "microbundle": "^0.11.0"
+  }
+}
