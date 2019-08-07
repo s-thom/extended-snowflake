@@ -25,6 +25,11 @@
   "bugs": {
     "url": "https://github.com/s-thom/extended-snowflake/issues"
   },
+  "files": [
+    "src/",
+    "dist/",
+    "LICENSE.md"
+  ],
   "homepage": "https://github.com/s-thom/extended-snowflake#readme",
   "devDependencies": {
     "microbundle": "^0.11.0"
