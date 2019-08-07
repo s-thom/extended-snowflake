@@ -2,7 +2,14 @@
 
 ## [View on GitHub](https://github.com/s-thom/extended-snowflake)
 
-## Info
+You'll also find the full README there.
+
+## Javascript info
+
+* Zero dependencies
+* Tiny: ~1kB
+
+## General Info
 
 An ID generation library, based on [Twitter's Snowflake](https://github.com/twitter/snowflake/tree/snowflake-2010) design. It also splits the instance ID into instance/worker, the [same way Discord](https://discordapp.com/developers/docs/reference#snowflakes) does.
 
@@ -33,3 +40,5 @@ It's really just a couple of bytes in front of a normal Snowflake. The extension
     * `2` -> Year 2100
     * `255` -> Year 14,750
   * This means IDs shouldn't be generated past the year 14799, and I honestly think we'll have better ID generation before then.
+
+In addition, the **Unused** bit is defined to always be `0`.
