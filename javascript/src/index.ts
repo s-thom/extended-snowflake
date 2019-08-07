@@ -75,8 +75,8 @@ export default class SnowflakeGenerator {
     const snowflakeLower = timestampShift + workerShift + processShift + this.lastGeneratedId
 
     const epochString = epochId.toString(16).padStart(2, '0');
-    const snowflakeUpperString = snowflakeUpper.toString(16).padStart(10, '0');
-    const snowflakeLowerString = snowflakeLower.toString(16).padStart(6, '0');
+    const snowflakeUpperString = snowflakeUpper.toString(16).padStart(8, '0');
+    const snowflakeLowerString = snowflakeLower.toString(16).padStart(8, '0');
     return `A0${epochString}${snowflakeUpperString}${snowflakeLowerString}`;
   }
 }
