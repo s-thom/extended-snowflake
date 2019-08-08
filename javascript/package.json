@@ -1,6 +1,6 @@
 {
   "name": "extended-snowflake",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Twitter-like Snowflakes for the future",
   "source": "src/index.ts",
   "main": "dist/index.js",

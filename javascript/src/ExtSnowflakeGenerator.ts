@@ -1,26 +1,21 @@
 export default class ExtSnowflakeGenerator {
-  private readonly workerId: number;
-  private readonly processId: number;
+  private readonly instanceId: number;
 
   private lastGeneratedId: number;
   private lastGeneratedTimestamp: number;
 
-  constructor(workerId: number, processId: number) {
-    // Check types of these IDs
-    if ((typeof workerId !== 'number') || (typeof processId !== 'number')) {
-      throw new Error(`Worker ID (${workerId}) or Process ID (${processId}) was not a number`);
+  constructor(instanceId: number) {
+    // Check types of the instance ID
+    if ((typeof instanceId !== 'number')) {
+      throw new Error(`Instance ID (${instanceId}) is not a number`);
     }
 
     // Also ensure they're in the correct range
-    if (workerId > 31) {
-      throw new Error(`Worker ID ${workerId} is too large`);
-    }
-    if (processId > 31) {
-      throw new Error(`Worker ID ${processId} is too large`);
+    if (instanceId >= 1024) {
+      throw new Error(`Instance ID (${instanceId}) is too large`);
     }
 
-    this.workerId = workerId;
-    this.processId = processId;
+    this.instanceId = instanceId;
   }
 
   public next() {
@@ -40,7 +35,7 @@ export default class ExtSnowflakeGenerator {
     } else {
       // Check for overflow (12 bits)
       if (this.lastGeneratedId >= 4096) {
-        throw new Error(`Highest ID reached for worker ${this.workerId}, process ${this.processId}, timestamp ${timestamp}`);
+        throw new Error(`Highest ID reached for Instance ID: ${this.instanceId}, Timestamp: ${timestamp}`);
       }
 
       // Increment ID
@@ -70,9 +65,8 @@ export default class ExtSnowflakeGenerator {
     // Snowflake lower
     // Lower part of the timestamp just needs to be masked and shifted into place
     const timestampShift = (timeOffset & 0x3FF) << 22;
-    const workerShift = this.workerId << 17;
-    const processShift = this.processId << 12;
-    const snowflakeLower = timestampShift + workerShift + processShift + this.lastGeneratedId
+    const instanceShift = this.instanceId << 12;
+    const snowflakeLower = timestampShift + instanceShift + this.lastGeneratedId;
 
     const epochString = epochId.toString(16).padStart(2, '0');
     const snowflakeUpperString = snowflakeUpper.toString(16).padStart(8, '0');
