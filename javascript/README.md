@@ -6,10 +6,40 @@
 
 You'll also find the full README there.
 
-## Javascript info
+## Javascript Info
 
 * Zero dependencies
 * Tiny: ~1kB
+
+### Usage
+
+```js
+import {ExtSnowflakeGenerator} from 'extended-snowflake';
+
+// Create generator using an instance ID
+const generator = new ExtSnowflakeGenerator(0);
+
+const snowflake = generator.next();
+
+// --- ---
+
+// If using worker + process instead of instance ID:
+import {ExtSnowflakeGenerator, combineWorkerProcess} from 'extended-snowflake';
+
+const generator = new ExtSnowflakeGenerator(combineWorkerProcess(0, 0));
+```
+
+### Version History
+
+```
+2.0.0
+  Imports changed, so incrementing major version
+  Generator now uses single instance ID, added function to turn worker+process into instance ID
+1.0.1
+  Fixed bug with string padding
+1.0.0
+  Initial release
+```
 
 ## General Info
 
