@@ -56,4 +56,6 @@ Because all numbers in Javascript are doubles Twitter had to modify their API to
 ## TODO in this repository
 
 * [ ] More languages
-* [ ] Unit tests (how to? Need help deciding how to test)
+* [ ] Support for generating Twitter/Discord Snowflakes (no extension)
+* [ ] Parsing Snowflakes
+* [x] Unit tests (how to? Need help deciding how to test)
