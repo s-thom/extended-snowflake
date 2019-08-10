@@ -32,6 +32,9 @@ const generator = new ExtSnowflakeGenerator(combineWorkerProcess(0, 0));
 ### Version History
 
 ```
+2.1.0
+  Added unit tests
+  Fixed bugs with higher values
 2.0.0
   Imports changed, so incrementing major version
   Generator now uses single instance ID, added function to turn worker+process into instance ID
