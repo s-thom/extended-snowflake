@@ -34,7 +34,9 @@ export default class ExtSnowflakeGenerator {
     }
 
     // Also ensure they're in the correct range
-    if (instanceId >= 1024) {
+    if (instanceId < 0){
+      throw new Error(`Instance ID (${instanceId}) is too low`);
+    } else if (instanceId >= 1024) {
       throw new Error(`Instance ID (${instanceId}) is too large`);
     }
 
