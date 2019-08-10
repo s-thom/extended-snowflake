@@ -23,7 +23,7 @@ test('creation is successful with lowest values', () => {
 });
 
 test('creation is successful with highest values', () => {
-  expect(createSnowflake(255, 2199023255551, 1023, 4095)).toBe('A0FFFFFFFFFFFFFFFFFF');
+  expect(createSnowflake(255, 2199023255551, 1023, 4095)).toBe('A0FF7FFFFFFFFFFFFFFF');
 });
 
 test('creation has sections in correct locations', () => {
