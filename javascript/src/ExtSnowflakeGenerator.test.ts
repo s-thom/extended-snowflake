@@ -1,4 +1,4 @@
-import ExtSnowflakeGenerator, {createSnowflake} from '../src/ExtSnowflakeGenerator';
+import ExtSnowflakeGenerator, {createSnowflake} from './ExtSnowflakeGenerator';
 
 test('ExtSnowflakeGenerator can be instantiated', () => {
   expect(() => {
