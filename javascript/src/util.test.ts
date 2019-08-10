@@ -1,4 +1,4 @@
-import {combineWorkerProcess} from '../src/index';
+import {combineWorkerProcess} from './util';
 
 test('Worker and Process IDs combine', () => {
   expect(combineWorkerProcess(0, 0)).toBe(0x000); // 0000 000000
