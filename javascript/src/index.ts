@@ -14,11 +14,15 @@ export function combineWorkerProcess(workerId: number, processId: number) {
   }
 
   // Also ensure they're in the correct range
-  if (workerId > 31) {
+  if (workerId < 0) {
+    throw new Error(`Worker ID ${workerId} is too low`);
+  } else if (workerId > 31) {
     throw new Error(`Worker ID ${workerId} is too large`);
   }
-  if (processId > 31) {
-    throw new Error(`Worker ID ${processId} is too large`);
+  if (processId < 0) {
+    throw new Error(`Process ID ${processId} is too low`);
+  } else if (processId > 31) {
+    throw new Error(`Process ID ${processId} is too large`);
   }
 
   return processId + (workerId << 5);
