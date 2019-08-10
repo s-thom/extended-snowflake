@@ -1,3 +1,24 @@
+import { toHexString } from "./util";
+
+export function createSnowflake(epochId: number, timeOffset: number, instanceId: number, counter: number) {
+  // As the timestamp section is only 41 bits, and JS doesn't do 64 bit ints,
+  // and bitwise operations act on 32 bit signed ints
+  // Since they're signed, the unused + timestamp + instance ID (52 bits)
+  // needs to be done as 2 separate sections. As they must be aligned to
+  // every 4 bits (for stringifying), the upper will be 28 bits, and the
+  // lower 24 bits.
+
+  // Can't just shift, because that'd remove the upper bits of the timestamp
+  const timestampUpper = Math.floor(timeOffset / 16384);
+  const timestampLower = ((timeOffset & 0x03FFF) << 10) + instanceId;
+
+  const epochString = toHexString(epochId, 2);
+  const upperString = toHexString(timestampUpper, 7);
+  const lowerString = toHexString(timestampLower, 6);
+  const counterString = toHexString(counter, 3);
+  return `A0${epochString}${upperString}${lowerString}${counterString}`;
+}
+
 export default class ExtSnowflakeGenerator {
   private readonly instanceId: number;
 
@@ -11,7 +32,9 @@ export default class ExtSnowflakeGenerator {
     }
 
     // Also ensure they're in the correct range
-    if (instanceId >= 1024) {
+    if (instanceId < 0){
+      throw new Error(`Instance ID (${instanceId}) is too low`);
+    } else if (instanceId >= 1024) {
       throw new Error(`Instance ID (${instanceId}) is too large`);
     }
 
@@ -52,25 +75,6 @@ export default class ExtSnowflakeGenerator {
     const epochTimestamp = epochDate.getTime();
     const timeOffset = timestamp - epochTimestamp;
 
-    // As the timestamp section is only 41 bits, and JS doesn't do 64 bit ints,
-    // and bitwise operations act on 32 bit ints.
-    // The Snowflake section needs to be split in two
-    // The upper section holds the unused bit and the highest 31 bits of the timestamp
-    // The lower section holds the lowest 10 bits of the timestamp, the worker/process IDs, and the counter
-
-    // Snowflake upper
-    // Since the time offset is less than 2^41, the 42nd is always 0
-    const snowflakeUpper = timeOffset >>> 10;
-
-    // Snowflake lower
-    // Lower part of the timestamp just needs to be masked and shifted into place
-    const timestampShift = (timeOffset & 0x3FF) << 22;
-    const instanceShift = this.instanceId << 12;
-    const snowflakeLower = timestampShift + instanceShift + this.lastGeneratedId;
-
-    const epochString = epochId.toString(16).padStart(2, '0');
-    const snowflakeUpperString = snowflakeUpper.toString(16).padStart(8, '0');
-    const snowflakeLowerString = snowflakeLower.toString(16).padStart(8, '0');
-    return `A0${epochString}${snowflakeUpperString}${snowflakeLowerString}`;
+    return createSnowflake(epochId, timeOffset, this.instanceId, this.lastGeneratedId);
   }
 }
