@@ -1,3 +1,5 @@
+import { toHexString } from "./util";
+
 export function createSnowflake(epochId: number, timeOffset: number, instanceId: number, counter: number) {
   // As the timestamp section is only 41 bits, and JS doesn't do 64 bit ints,
   // and bitwise operations act on 32 bit signed ints
@@ -10,11 +12,11 @@ export function createSnowflake(epochId: number, timeOffset: number, instanceId:
   const timestampUpper = Math.floor(timeOffset / 16384);
   const timestampLower = ((timeOffset & 0x03FFF) << 10) + instanceId;
 
-  const epochString = epochId.toString(16).padStart(2, '0');
-  const upperString = timestampUpper.toString(16).padStart(7, '0');
-  const lowerString = timestampLower.toString(16).padStart(6, '0');
-  const counterString = counter.toString(16).padStart(3, '0');
-  return `A0${epochString}${upperString}${lowerString}${counterString}`.toUpperCase();
+  const epochString = toHexString(epochId, 2);
+  const upperString = toHexString(timestampUpper, 7);
+  const lowerString = toHexString(timestampLower, 6);
+  const counterString = toHexString(counter, 3);
+  return `A0${epochString}${upperString}${lowerString}${counterString}`;
 }
 
 export default class ExtSnowflakeGenerator {
