@@ -30,6 +30,10 @@ export function combineWorkerProcess(workerId: number, processId: number) {
  * @param padLength Padding length
  */
 export function toHexString(n: number, padLength = 0) {
+  if (n < 0) {
+    throw new Error(`Number ${n} is too low`);
+  }
+
   return n
     .toString(16)
     .padStart(padLength, '0')
